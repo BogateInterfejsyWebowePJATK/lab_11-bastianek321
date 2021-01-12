@@ -1,7 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
-import ListItem from "./components/ListItem";
 import OrderedList from "./components/OrderedList";
+import {useState} from "react"
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -9,19 +8,19 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function getRandomTenNumbers(){
+function getRandomNumbers(amount){
   let numbers = [];
-  for(let i = 0; i < 10; i++){
+  for(let i = 0; i < amount; i++){
     numbers[i] = getRandomInt(0, 100)
   }
   return numbers
 }
 
 function App() {
-  let numbers = getRandomNumbers()
+  let [numbers, setNumbers] = useState(getRandomNumbers(10))
   console.log(numbers)
   return (
-    <OrderedList items={numbers}/>
+    <OrderedList items={numbers} refresh={_ => {setNumbers(getRandomNumbers(10))}} />
   );
 }
 
